@@ -438,7 +438,7 @@ MonoBehaviour:
     - Get scores for distance covered
 
     - Once score
-    is above 1000 collect special key
+    is above 500 collect special key
 
     - Win'
 --- !u!222 &617867359
