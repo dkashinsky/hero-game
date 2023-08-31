@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class HeroManager : MonoBehaviour, IHeroAnimationContext
 {
+    public GameResultScriptableObject gameResult;
     public Text scoreText;
     public Text healthText;
-    public float jumpForce = 7.0f;      // Amount of force added when the player jumps.
+    private float jumpForce = 7.0f;      // Amount of force added when the player jumps.
     private float movementSpeed = 7.0f; // The speed of the horizontal movement
     private float startX = 0f;
-    private int score = 0;
     private Animator anim;
     private Rigidbody2D body;
     private AnimatedHeroState heroState;
@@ -24,6 +24,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
         body = GetComponent<Rigidbody2D>();
         SetHeroState(new StandingState(this));
         startX = transform.position.x;
+        gameResult.score = 0;
     }
 
     // Update is called once per frame
@@ -86,12 +87,28 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
 
     private void CalculateScore()
     {
+        var score = gameResult.score;
         score = Math.Max(score, (int)(transform.position.x - startX));
+
         scoreText.text = score.ToString();
+        gameResult.score = score;
     }
 
     private void UpdateHealthUI()
     {
         healthText.text = heroState.Health.ToString();
+
+        if (!heroState.IsAlive)
+        {
+            StartCoroutine(EndGameAfterSeconds(3));
+        }
+    }
+
+    IEnumerator EndGameAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        gameResult.isWin = false;
+        ScenesManager.Instance.EndGame();
     }
 }

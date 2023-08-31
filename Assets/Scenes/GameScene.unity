@@ -4021,9 +4021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5371f749984d73840aadb6a1f3cabf90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameResult: {fileID: 11400000, guid: aa57a72ac345e234681b5fdaabd91797, type: 2}
   scoreText: {fileID: 1071627904}
   healthText: {fileID: 950795914}
-  jumpForce: 7
 --- !u!1 &1142989382
 GameObject:
   m_ObjectHideFlags: 0
