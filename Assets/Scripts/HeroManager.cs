@@ -1,12 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroManager : MonoBehaviour, IHeroAnimationContext
 {
+    public Text scoreText;
+    public Text healthText;
     public float jumpForce = 7.0f;      // Amount of force added when the player jumps.
     private float movementSpeed = 0.045f; // The speed of the horizontal movement
+    private float startX = 0f;
+    private int score = 0;
     private Animator anim;
     private Rigidbody2D body;
     private AnimatedHeroState heroState;
@@ -17,6 +23,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
         anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
         SetHeroState(new StandingState(this));
+        startX = transform.position.x;
     }
 
     // Update is called once per frame
@@ -54,7 +61,11 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
             {
                 heroState.UpdateIsMoving(false);
             }
+
+            CalculateScore();
         }
+        
+        UpdateHealthUI();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -71,5 +82,16 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     {
         heroState = state;
         anim.SetInteger("Transition", (int)state.AnimationState);
+    }
+
+    private void CalculateScore()
+    {
+        score = Math.Max(score, (int)(transform.position.x - startX));
+        scoreText.text = score.ToString();
+    }
+
+    private void UpdateHealthUI()
+    {
+        healthText.text = heroState.Health.ToString();
     }
 }

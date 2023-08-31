@@ -8,7 +8,7 @@ public class LaserManager : MonoBehaviour
     public GameObject hero;
     private int damagePerSecond;
     private float damageFrequency;
-    private bool isCollided;
+    private bool isHeroCollided;
     private float laserCounter;
 
     // Start is called before the first frame update
@@ -22,17 +22,13 @@ public class LaserManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCollided) 
+        if (isHeroCollided)
         {
             laserCounter += Time.deltaTime;
 
             if (laserCounter >= damageFrequency)
             {
-                hero
-                    .GetComponent<HeroManager>()
-                    .GetHeroState()
-                    .UpdateHealth(-(int)Math.Floor(damagePerSecond * damageFrequency));
-
+                ApplyDamageToHero();
                 laserCounter = 0;
             }
         }
@@ -40,15 +36,28 @@ public class LaserManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isCollided = collision.gameObject == hero;
+        isHeroCollided = collision.gameObject == hero;
+        
+        if (isHeroCollided) 
+        {
+            ApplyDamageToHero();
+            laserCounter = 0;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject == hero)
         {
-            isCollided = false;
-            laserCounter = 0;
+            isHeroCollided = false;
         }
+    }
+
+    private void ApplyDamageToHero()
+    {
+        hero
+            .GetComponent<HeroManager>()
+            .GetHeroState()
+            .UpdateHealth(-(int)Math.Floor(damagePerSecond * damageFrequency));
     }
 }
