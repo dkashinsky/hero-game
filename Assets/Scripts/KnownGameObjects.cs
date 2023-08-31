@@ -1,6 +1,7 @@
 public static class KnownGameObjects
 {
-    public static string Player = "Player";
-    public static string FuelCan = "FuelCan";
-    public static string Bullet = "Bullet";
+    public const string Player = "Player";
+    public const string FuelCan = "FuelCan";
+    public const string Bullet = "Bullet";
+    public const string Level = "Level";
 }
