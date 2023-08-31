@@ -5,57 +5,57 @@ using UnityEngine;
 
 public class LaserManager : MonoBehaviour
 {
-    public GameObject hero;
+    private GameObject hero = null;
     private int damagePerSecond;
     private float damageFrequency;
     private bool isHeroCollided;
-    private float laserCounter;
+    private float laserTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         damagePerSecond = 20;
         damageFrequency = 0.5f; // every half second
-        laserCounter = 0;
+        laserTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isHeroCollided)
+        if (hero != null)
         {
-            laserCounter += Time.deltaTime;
+            laserTimer += Time.deltaTime;
 
-            if (laserCounter >= damageFrequency)
+            if (laserTimer >= damageFrequency)
             {
                 ApplyDamageToHero();
-                laserCounter = 0;
+                laserTimer = 0;
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        isHeroCollided = collision.gameObject == hero;
-        
-        if (isHeroCollided) 
+    {   
+        if (collision.gameObject.tag == KnownGameObjects.Player) 
         {
+            hero = collision.gameObject;
+
             ApplyDamageToHero();
-            laserCounter = 0;
+            laserTimer = 0;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject == hero)
+        if (collision.gameObject.tag == KnownGameObjects.Player)
         {
-            isHeroCollided = false;
+            hero = null;
         }
     }
 
     private void ApplyDamageToHero()
     {
-        hero
+        hero?
             .GetComponent<HeroManager>()
             .GetHeroState()
             .UpdateHealth(-(int)Math.Floor(damagePerSecond * damageFrequency));

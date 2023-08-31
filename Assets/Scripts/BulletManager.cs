@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FuelCanManager : MonoBehaviour
+public class BulletManager : MonoBehaviour
 {
-    private int healthPoints = 10;
+    private int healthDamagePoints = 35;
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +22,12 @@ public class FuelCanManager : MonoBehaviour
     {
         if (collision.gameObject.tag == KnownGameObjects.Player)
         {
-            var heroState = collision
-                .gameObject
+            collision.gameObject
                 .GetComponent<HeroManager>()
-                .GetHeroState();
+                .GetHeroState()
+                .UpdateHealth(-healthDamagePoints);
 
-            if (!heroState.IsHealthy)
-            {
-                heroState.UpdateHealth(healthPoints);
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(false);
         }
     }
 }
