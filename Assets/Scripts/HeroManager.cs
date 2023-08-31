@@ -10,7 +10,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     public Text scoreText;
     public Text healthText;
     public float jumpForce = 7.0f;      // Amount of force added when the player jumps.
-    private float movementSpeed = 0.045f; // The speed of the horizontal movement
+    private float movementSpeed = 7.0f; // The speed of the horizontal movement
     private float startX = 0f;
     private int score = 0;
     private Animator anim;
@@ -42,7 +42,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 transform.position = new Vector3(
-                    transform.position.x + movementSpeed,
+                    transform.position.x + Time.deltaTime * movementSpeed,
                     transform.position.y,
                     0f);
                 heroState.UpdateIsMoving(true);
@@ -51,7 +51,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
                 transform.position = new Vector3(
-                    transform.position.x - movementSpeed,
+                    transform.position.x - Time.deltaTime * movementSpeed,
                     transform.position.y,
                     0f);
                 heroState.UpdateIsMoving(true);
