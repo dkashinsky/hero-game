@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LaserManager : MonoBehaviour
 {
+    public AudioSource sound;
     private GameObject hero = null;
     private int damagePerSecond;
     private float damageFrequency;
@@ -35,8 +36,8 @@ public class LaserManager : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {   
-        if (collision.gameObject.tag == KnownGameObjects.Player) 
+    {
+        if (collision.gameObject.tag == KnownGameObjects.Player)
         {
             hero = collision.gameObject;
 
@@ -55,9 +56,13 @@ public class LaserManager : MonoBehaviour
 
     private void ApplyDamageToHero()
     {
-        hero?
-            .GetComponent<HeroManager>()
-            .GetHeroState()
-            .UpdateHealth(-(int)Math.Floor(damagePerSecond * damageFrequency));
+        if (hero != null)
+        {
+            hero
+                .GetComponent<HeroManager>()
+                .GetHeroState()
+                .UpdateHealth(-(int)Math.Floor(damagePerSecond * damageFrequency));
+            sound.Play();
+        }
     }
 }

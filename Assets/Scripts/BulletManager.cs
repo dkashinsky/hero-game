@@ -4,24 +4,13 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
+    public AudioSource sound;
     private int healthDamagePoints = 35;
     private List<string> collisionObjects = new List<string>()
     {
         KnownGameObjects.Player,
         KnownGameObjects.Level
     };
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,6 +21,8 @@ public class BulletManager : MonoBehaviour
                 .GetComponent<HeroManager>()
                 .GetHeroState()
                 .UpdateHealth(-healthDamagePoints);
+
+            sound.Play();
         }
 
         // disappear the bullet when it collides with player or level (floor)

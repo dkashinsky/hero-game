@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LaserWallManager : MonoBehaviour
 {
+    public AudioSource sound;
     private int healthDamagePoints = 30;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -15,6 +16,8 @@ public class LaserWallManager : MonoBehaviour
                 .GetComponent<HeroManager>()
                 .GetHeroState()
                 .UpdateHealth(-healthDamagePoints);
+
+            sound.Play();
         }
     }
 }
