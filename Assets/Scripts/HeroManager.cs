@@ -10,6 +10,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     public GameResultScriptableObject gameResult;
     public Text scoreText;
     public Text healthText;
+    public AudioSource jumpSound;
     private float jumpForce = 7.0f;      // Amount of force added when the player jumps.
     private float movementSpeed = 7.0f; // The speed of the horizontal movement
     private float startX = 0f;
@@ -37,6 +38,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
                 // Add a vertical force to the player.
                 body.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 heroState.UpdateIsJumping(true);
+                jumpSound.Play();
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
