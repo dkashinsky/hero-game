@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FuelCanManager : MonoBehaviour
 {
+    public AudioSource sound;
     private int healthPoints = 10;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,6 +20,7 @@ public class FuelCanManager : MonoBehaviour
             {
                 heroState.UpdateHealth(healthPoints);
                 gameObject.SetActive(false);
+                sound.Play();
             }
         }
     }
