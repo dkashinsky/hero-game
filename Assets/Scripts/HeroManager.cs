@@ -98,6 +98,12 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     {
         heroState = state;
         anim.SetInteger("Transition", (int)state.AnimationState);
+
+        if (!heroState.IsAlive)
+        {
+            dieSound.Play();
+            StartCoroutine(EndGameAfterSeconds(3));
+        }
     }
 
     private void CalculateScore()
@@ -112,12 +118,6 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     private void UpdateHealthUI()
     {
         healthText.text = heroState.Health.ToString();
-
-        if (!heroState.IsAlive)
-        {
-            dieSound.Play();
-            StartCoroutine(EndGameAfterSeconds(3));
-        }
     }
 
     IEnumerator EndGameAfterSeconds(float seconds)
