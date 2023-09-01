@@ -11,6 +11,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     public Text scoreText;
     public Text healthText;
     public AudioSource jumpSound;
+    public AudioSource dieSound;
     private float jumpForce = 7.0f;      // Amount of force added when the player jumps.
     private float movementSpeed = 7.0f; // The speed of the horizontal movement
     private float startX = 0f;
@@ -114,6 +115,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
 
         if (!heroState.IsAlive)
         {
+            dieSound.Play();
             StartCoroutine(EndGameAfterSeconds(3));
         }
     }
