@@ -71,7 +71,19 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        heroState.UpdateIsJumping(false);
+        if (collision.gameObject.tag == KnownGameObjects.Level)
+        {
+            heroState.UpdateIsJumping(false);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == KnownGameObjects.Finish)
+        {
+            gameResult.isWin = true;
+            ScenesManager.Instance.EndGame();
+        }
     }
 
     public AnimatedHeroState GetHeroState()

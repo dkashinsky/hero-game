@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class MovePrefab : MonoBehaviour
 {
-    public GameObject hero;
+    public GameResultScriptableObject gameResult;
+    public GameObject secretPrefab;
     public GameObject prefabToMove;
     public GameObject sensorToActivate;
     private float deltaX = 76.86374f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == hero)
+        if (collision.gameObject.tag == KnownGameObjects.Player)
         {
-            prefabToMove.transform.position = new Vector2(
-                prefabToMove.transform.position.x + deltaX,
-                prefabToMove.transform.position.y
+            if (gameResult.score > 500)
+            {
+                secretPrefab.transform.position = new Vector2(
+                    prefabToMove.transform.position.x + deltaX,
+                    prefabToMove.transform.position.y
                 );
-            sensorToActivate.SetActive(true);
-            gameObject.SetActive(false);
+            } 
+            else 
+            {
+                prefabToMove.transform.position = new Vector2(
+                    prefabToMove.transform.position.x + deltaX,
+                    prefabToMove.transform.position.y
+                );
+                sensorToActivate.SetActive(true);
+                gameObject.SetActive(false);
+            }
         }
     }
 }
