@@ -5,4 +5,5 @@ public static class KnownGameObjects
     public const string Bullet = "Bullet";
     public const string Level = "Level";
     public const string Finish = "Finish";
+    public const string ScreenSensor = "ScreenSensor";
 }

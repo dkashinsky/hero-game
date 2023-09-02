@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     public AudioSource sound;
-    private int healthDamagePoints = 35;
+    private int healthDamagePoints = 15;
     private List<string> collisionObjects = new List<string>()
     {
         KnownGameObjects.Player,
@@ -28,5 +28,14 @@ public class BulletManager : MonoBehaviour
         // disappear the bullet when it collides with player or level (floor)
         if (collisionObjects.Contains(collision.gameObject.tag))
             gameObject.SetActive(false);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == KnownGameObjects.ScreenSensor)
+        {
+            // deactivate bullet when it leaves the sceen so that it can be reused
+            gameObject.SetActive(false);
+        }
     }
 }
