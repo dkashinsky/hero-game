@@ -27,6 +27,7 @@ public class MovePrefab : MonoBehaviour
                     prefabToMove.transform.position.x + deltaX,
                     prefabToMove.transform.position.y
                 );
+                prefabToMove.GetComponent<PrefabManager>().Randomize();
                 sensorToActivate.SetActive(true);
                 gameObject.SetActive(false);
             }
