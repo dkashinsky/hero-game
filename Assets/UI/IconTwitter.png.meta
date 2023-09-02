@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IconTwitter_0: 5113074746348246269
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

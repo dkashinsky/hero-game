@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      GunFire0017_0: -8560287338215895027
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

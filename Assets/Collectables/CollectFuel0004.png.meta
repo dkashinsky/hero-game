@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CollectFuel0004_0: -3119569109627333988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

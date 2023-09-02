@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lazers0003_0: 5181065498774768259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

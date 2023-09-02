@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IconGameCenter_0: -2151266518513842734
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Enviro1_Cover_0: -6685487775840932390
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

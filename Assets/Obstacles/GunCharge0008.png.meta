@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      GunCharge0008_0: -3090548972975077015
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      metalbox_full_0: 1711488275455635481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class HeroManager : MonoBehaviour, IHeroAnimationContext
 {
+    public FixedJoystick fixedJoystick;
     public GameResultScriptableObject gameResult;
     public Text scoreText;
     public Text healthText;
@@ -15,11 +16,44 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
     private float jumpForce = 7.0f;      // Amount of force added when the player jumps.
     private float movementSpeed = 7.0f; // The speed of the horizontal movement
     private float startX = 0f;
+    private float joystickThreshold = 0.5f;
     private Animator anim;
     private Rigidbody2D body;
     private AnimatedHeroState heroState;
 
-    // Start is called before the first frame update
+    private bool IsJumpPressed()
+    {
+        return fixedJoystick.gameObject.activeSelf
+            ? fixedJoystick.Vertical >= joystickThreshold
+            : Input.GetKeyDown(KeyCode.UpArrow);
+    }
+
+    private bool IsLeftPressed()
+    {
+        return fixedJoystick.gameObject.activeSelf
+            ? fixedJoystick.Horizontal <= -joystickThreshold
+            : Input.GetKey(KeyCode.LeftArrow);
+    }
+
+    private bool IsRightPressed()
+    {
+        return fixedJoystick.gameObject.activeSelf
+            ? fixedJoystick.Horizontal >= joystickThreshold
+            : Input.GetKey(KeyCode.RightArrow);
+    }
+
+    private bool IsMovementReleased()
+    {
+        return fixedJoystick.gameObject.activeSelf
+            ? (fixedJoystick.Horizontal > -joystickThreshold && fixedJoystick.Horizontal < joystickThreshold)
+            : (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow));
+    }
+
+    void Awake()
+    {
+        fixedJoystick.gameObject.SetActive(Application.platform == RuntimePlatform.Android);
+    }
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -29,12 +63,11 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
         gameResult.score = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (heroState.IsAlive)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) && !heroState.IsJumping)
+            if (IsJumpPressed() && !heroState.IsJumping)
             {
                 // Add a vertical force to the player.
                 body.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -42,7 +75,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
                 jumpSound.Play();
             }
 
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (IsRightPressed())
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 transform.position = new Vector3(
@@ -51,7 +84,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
                     0f);
                 heroState.UpdateIsMoving(true);
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            else if (IsLeftPressed())
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
                 transform.position = new Vector3(
@@ -61,7 +94,7 @@ public class HeroManager : MonoBehaviour, IHeroAnimationContext
                 heroState.UpdateIsMoving(true);
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            if (IsMovementReleased())
             {
                 heroState.UpdateIsMoving(false);
             }

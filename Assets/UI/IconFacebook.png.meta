@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IconFacebook_0: 5166033913781953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
